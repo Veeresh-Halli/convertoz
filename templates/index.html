@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/veehalli.png' %}">
+    <title>Converter</title>
+</head>
+<body>
+
+<section>
+<div class="container-fluid mt-2">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class="navbar-brand brand" href="{% url 'home' %}">Converter</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mr-5">
+            <li class="nav-item active mx-auto">
+                <a class="nav-link mr-3 " href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown mr-3 mx-auto">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Services
+              </a>
+              <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                <a class="dropdown-item " href="{% url 'home' %}">wav to txt</a>
+              </div>
+            </li>
+            <li class="nav-item mx-auto">
+                <a class="nav-link" href="{% url 'about' %}">About Us</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+</div>
+</section>
+   
+{% block content %}
+
+<section>
+    <div class="container">
+        <h1 class="heading text-center">Convert WAV to TEXT</h1>
+        <p class="text-center">Save time transcribing with our WAV to text converter.</p>
+        <p class="para text-center">Convert your WAV (.wav) to text.</p>
+    </div>
+</section>
+
+<section >
+  <div class="container">
+    <form action="" method="POST" enctype="multipart/form-data" class="text-center">
+      {% csrf_token %}
+      <input type="file" name='file' class="file"><br><br>
+      
+      <button type="submit" class="btn btn-info" id="convert">Convert</button>
+      <script>
+        $('#convert').click(function () {
+         
+          $('.process').show(1000);
+        })
+        
+      </script>
+    </form>
+    
+  <h3 class="process text-center mt-3" style="display: none;">Processing, Please wait......</h3>
+  {% if text %}
+  {% else %}
+  {% for i in messages %}
+  
+  <h3 class="message text-center mt-3">{{i}}</h3>
+  <script>
+    $('.message').slideUp(8000);
+  </script>
+  {% endfor %}
+  {% endif %}
+ 
+
+  {%if text %}
+  <div class="card card-body mt-3">
+    <h3 class="text-center">Converted Text :</h3>
+    <p class="mt-3">{{text}}</p>
+  </div>
+  <div class="row">
+    <div class="col-lg-2 col-md-2 col-5 mx-auto">
+      <a href="{% static 'converted.txt' %}" download class="mt-3 btn btn-info">Download</a>
+ 
+    </div>
+  </div>
+
+  {% endif %}
+
+  </div>
+</section>
+
+<section>
+  <div class="container mt-5 mb-5">
+    <div class="card card-body col-lg-10 col-md-10 col-12 mx-auto">
+      <h2 class="text-center">How to convert WAV to text?</h2>
+      <h3 class="mt-2">1. Upload your WAV file(below 1 min).</h3>
+      <p>With our browse feature, you can import your file from anywhere, whether it's on your laptop or phone.</p>
+      <h3 class="mt-2">2. Click on <strong>"Convert"</strong> button.</h3>
+      <p>Our automatic transcription software is lightning fast and 85% accurate.</p>
+      <h3 class="mt-2">3. Receive your text file.</h3>
+      <p>Our automatic transcription software will convert your WAV file to text in just a few minutes (depending on the length of your file and internet connectivity).</p>
+      <h3 class="mt-2">4. Click on <strong>"Download"</strong> to download the converted file.</h3>
+      <p>You can download the converted text file. It’s that easy to get your WAV files to text.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container mb-5">
+    <h2 class="text-center mb-3">Frequently Asked Questions</h2>
+
+    <div class="card card-body col-lg-6 col-md-6 col-12 mx-auto pb-0 pt-3">
+      <p id="hideone">Can you convert MP3 to text? <i class="fas fa-chevron-down float-right mt-1"></i></p>
+      <p style="display: none;" id="hideonep">No, currently we don't convert mp3 files into text file.</p>
+    </div>
+    <div class="card card-body col-lg-6 col-md-6 col-12 mx-auto pb-0 mt-2 pt-3">
+      <p id="hidetwo">How accurate is the WAV Convertion? <i class="fas fa-chevron-down float-right mt-1"></i></p>
+      <p style="display: none;" id="hide2">Our WAV service have an accuracy of 85%. Automated transcription is much faster and works perfectly when you need to convert audio into text documents as fast as possible, and don't mind having to proofread the final transcription.</p>
+    </div>
+    <div class="card card-body col-lg-6 col-md-6 col-12 mx-auto pb-0 mt-2 pt-3">
+      <p id="hidethree">Which formats can I export my WAV file to? <i class="fas fa-chevron-down float-right mt-1"></i></p>
+      <p style="display: none;" id="hide3">You can export your WAV converted file to text formats including Plain Text (.txt), Microsoft Word (.docx), PDF (.pdf).</p>
+    </div>
+    <div class="card card-body col-lg-6 col-md-6 col-12 mx-auto pb-0 mt-2 pt-3">
+      <p id="hidefour">Is it free? <i class="fas fa-chevron-down float-right mt-1"></i></p>
+      <p style="display: none;" id="hide4">Yes, Coverter is a free online tool to convert your WAV file to text file.</p>
+    </div>
+
+  </div>
+</section>
+ 
+<section id=footer>
+  <div class="container mb-3">
+    <h3 style="opacity: 0.7;">Converter</h3>
+    <hr class="bg-dark paratwo col-lg-8 col-md-8 col-5">
+
+  <div class="row">
+    <div class="col-lg-3 col-md-3 col-12">
+      <h5 class="mt-3">Company</h5>
+      <a href="{% url 'about' %}">About Us</a>
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-12">
+      <h5 class="mt-3">Formats</h5>
+      <a href="">MP3 to Text (Coming soon)</a><br>
+      <a href="">MP4 to Text (Coming soon)</a>
+    </div>
+
+    </div>
+    
+  </div>
+</section>
+
+<section>
+  <div class="container text-center mt-5">
+    <p>@ 2021 by Veeresh Halli</p>
+    <p class="para">Made with <span>❤️</span> in Gulbarga</p>
+  </div>
+</section>
+ 
+
+<script>
+$(document).ready(function(){
+
+  $('#hideone').click(function () {
+    $('#hideonep').toggle(1000);
+  })
+  
+  $('#hidetwo').click(function () {
+    $('#hide2').toggle(1000);
+  })
+
+  $('#hidethree').click(function () {
+      $('#hide3').toggle(1000);
+    })
+
+    $('#hidefour').click(function () {
+      $('#hide4').toggle(1000);
+    })
+
+});
+
+</script>
+
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

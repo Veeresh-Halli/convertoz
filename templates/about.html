@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<section>
+    <div class="container mt-5">
+        <h1 class="text-center">About Us</h1>
+        <hr class="w-50 bg-dark">
+    </div>
+</section>
+
+<section>
+    <div class="container mt-4 mb-5">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-12 mt-2">
+              <img src="{% static 'images/vee.png' %}" class="img-fluid" style="border-radius: 25px;">
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 my-auto pt-3">
+                <!-- <div class="card card-body"> -->
+                    <h2>Veeresh Halli</h2>
+                    <p class="para">Django Full Stack Developer, Blogger, YouTuber</p>
+                    <p>Veeresh Halli is a django full stack developer and specialized in backend development. Designed and developed many django web applications.</p>
+                    <div class="row">
+                        <a href="https://www.youtube.com/VeereshHalli"><i class="fab fa-youtube fa-2x ml-3 mr-2 " style="color: black;"></i></a>
+                        <a href="https://www.linkedin.com/in/veereshhalli"><i class="fab fa-linkedin fa-2x ml-2 mr-2 " style="color: black;"></i></a>
+                        <a href="https://www.instagram.com/vee.halli"><i class="fab fa-instagram fa-2x ml-2 mr-2 " style="color: black;"></i></a>
+                        <a href="https://www.facebook.com/veehalliofficial"><i class="fab fa-facebook fa-2x ml-2 mr-2 " style="color: black;"></i></a>
+                        <a href="https://veereshhalli.blogspot.com/"><i class="fab fa-blogger fa-2x ml-2 mr-2 " style="color: black;"></i></a>
+                        <a href="https://www.twitter.com/veehalli"><i class="fab fa-twitter fa-2x ml-2 mr-2 " style="color: black;"></i></a>
+                    
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
